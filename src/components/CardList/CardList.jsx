@@ -1,22 +1,32 @@
 import React from "react";
 import styles from "./cardList.module.css";
 import Pagination from "../pagination/Pagination";
-import Image from "next/image";
 import Card from "../card/Card";
+import prisma from "@/utils/connect";
 
 const getData = async (page, cat) => {
-  const res = await fetch(
-    `http://localhost:3000/api/posts?page=${page}&cat=${cat || ""}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const POST_PER_PAGE = 2;
 
-  if (!res.ok) {
-    throw new Error("Failed");
+  const query = {
+    take: POST_PER_PAGE,
+    skip: POST_PER_PAGE * (page - 1),
+    where: {
+      ...(cat && { catSlug: cat }),
+    },
+    orderBy: { createdAt: "desc" },
+    include: { user: true },
+  };
+
+  try {
+    const [posts, count] = await prisma.$transaction([
+      prisma.post.findMany(query),
+      prisma.post.count({ where: query.where }),
+    ]);
+    return { posts, count };
+  } catch (err) {
+    console.log(err);
+    return { posts: [], count: 0 };
   }
-
-  return res.json();
 };
 
 const CardList = async ({ page, cat }) => {
@@ -32,7 +42,7 @@ const CardList = async ({ page, cat }) => {
       <h1 className={styles.title}>Recent Posts</h1>
       <div className={styles.posts}>
         {posts?.map((item) => (
-          <Card item={item} key={item._id} />
+          <Card item={item} key={item.id} />
         ))}
       </div>
       <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />

@@ -4,23 +4,31 @@ import Image from "next/image";
 import Comments from "@/components/comments/Comments";
 import DeletePostButton from "@/components/deletePostButton/DeletePostButton";
 import { timeAgo } from "@/utils/timeAgo";
+import prisma from "@/utils/connect";
+import { notFound } from "next/navigation";
 
 const getData = async (slug) => {
-  const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed");
+  try {
+    const post = await prisma.post.update({
+      where: { slug },
+      data: { views: { increment: 1 } },
+      include: { user: true },
+    });
+    return post;
+  } catch (err) {
+    console.log(err);
+    return null;
   }
-
-  return res.json();
 };
 
 const SinglePage = async ({ params }) => {
   const { slug } = params;
 
   const data = await getData(slug);
+
+  if (!data) {
+    notFound();
+  }
 
   return (
     <div className={styles.container}>

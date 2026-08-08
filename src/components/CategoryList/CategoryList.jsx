@@ -3,17 +3,16 @@ import styles from "./categoryList.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import ScrollReveal from "../scrollReveal/ScrollReveal";
+import prisma from "@/utils/connect";
 
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/categories", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed");
+  try {
+    const categories = await prisma.category.findMany();
+    return categories;
+  } catch (err) {
+    console.log(err);
+    return [];
   }
-
-  return res.json();
 };
 
 const CategoryList = async () => {
@@ -27,7 +26,7 @@ const CategoryList = async () => {
             <Link
               href={`/blog?cat=${item.slug}`}
               className={`${styles.category} ${styles[item.slug]}`}
-              key={item.id || item._id}
+              key={item.id}
             >
               {item.img && (
                 <Image
