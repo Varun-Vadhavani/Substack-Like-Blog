@@ -24,8 +24,8 @@
     border-radius: 10px;
 }
 
-.category.style{
-    background-color: #57c4ff31;
+.category.philosophy{
+    background-color: #8b5cf631;
 }
 
 .category.fashion{
@@ -33,7 +33,7 @@
 }
 
 .category.food{
-    background-color: #7fb88133;
+    background-color: #dc143c33;
 }
 
 .category.travel{

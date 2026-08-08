@@ -13,8 +13,9 @@
 
 .editor {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
-  height: 700px;
+  min-height: 700px;
   position: relative;
 }
 
@@ -32,7 +33,7 @@
 }
 
 .addButton {
-  border-color: #1a8917;
+  border-color: crimson;
 }
 
 .add {
@@ -60,6 +61,7 @@
 
 .textArea {
   width: 100%;
+  flex-basis: 100%;
 }
 
 .publish{
@@ -68,8 +70,24 @@
   right: 0px;
   padding: 10px 20px;
   border: none;
-  background-color: #1a8917;
+  background-color: crimson;
   color: white;
   cursor: pointer;
   border-radius: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.publish:hover {
+  background-color: #b01030;
+}
+
+.imagePreview{
+  flex-basis: 100%;
+  margin-left: 50px;
+}
+
+.uploading{
+  margin-left: 50px;
+  color: crimson;
+  font-style: italic;
 }

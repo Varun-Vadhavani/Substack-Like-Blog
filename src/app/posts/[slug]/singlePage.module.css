@@ -1,0 +1,166 @@
+.container {
+    width: 100%;
+}
+
+.infoContainer {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.textContainer {
+    flex: 1;
+    width: 100%;
+}
+
+.title {
+    font-size: 56px;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 35px;
+    word-break: break-word;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.userImageContainer {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.avatar {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userTextContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: var(--softTextColor);
+}
+
+.username {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--textColor);
+}
+
+.imageContainer {
+    flex: 1;
+    width: 100%;
+    height: 380px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+}
+
+.content {
+    display: flex;
+    gap: 50px;
+    width: 100%;
+}
+
+.post {
+    flex: 5;
+    width: 100%;
+    margin-top: 50px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.description {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.description p {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.85;
+    margin-bottom: 24px;
+    color: var(--textColor);
+    word-break: break-word;
+}
+
+.description img {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.description pre, .description code {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+@media screen and (max-width: 1536px) {
+  .title {
+    font-size: 48px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .title {
+    font-size: 42px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .infoContainer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+  }
+
+  .imageContainer {
+    flex: none;
+    width: 100%;
+    height: 300px;
+  }
+
+  .content {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .post {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .title {
+    font-size: 32px;
+    line-height: 1.25;
+  }
+
+  .imageContainer {
+    flex: none;
+    width: 100%;
+    height: 220px;
+  }
+
+  .description p {
+    font-size: 18px;
+    line-height: 1.75;
+  }
+}

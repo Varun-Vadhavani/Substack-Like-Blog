@@ -1,25 +1,36 @@
-"use client"
+"use client";
 
-import { createContext, useEffect } from "react"
-import { useState } from "react"
+import { createContext, useEffect, useState } from "react";
 
-export const ThemeContext = createContext()
-
-const getFromLocalStorage = () => {
-    const value = localStorage.getItem("theme")
-    return value || "light"
-}
+export const ThemeContext = createContext();
 
 export const ThemeContextProvider = ({ children }) => {
-    const [theme, setTheme] = useState(getFromLocalStorage())
+  const [theme, setTheme] = useState("light");
+  const [mounted, setMounted] = useState(false);
 
-    const toggle = () => {
-        setTheme(theme === "light" ? "dark" : "light")
+  // On mount, read saved theme from localStorage
+  useEffect(() => {
+    setMounted(true);
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || savedTheme === "light") {
+      setTheme(savedTheme);
     }
+  }, []);
 
-    useEffect(() => {
-        localStorage.setItem("theme", theme)
-    }, [theme])
+  // Save theme changes to localStorage after initial mount
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem("theme", theme);
+    }
+  }, [theme, mounted]);
 
-    return <ThemeContext.Provider value={{ theme, setTheme, toggle }}>{children}</ThemeContext.Provider>
-}
+  const toggle = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme, toggle }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};

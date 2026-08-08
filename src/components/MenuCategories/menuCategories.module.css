@@ -3,15 +3,24 @@
     margin-bottom: 60px;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
 }
 
 .categoryItem {
-    padding: 10px 25px;
+    padding: 10px 20px;
     border-radius: 10px;
     font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.2s ease;
 }
 
-.categoryItem.style {
-    background-color: #57c4ff31;
+.categoryItem:hover {
+    transform: translateY(-2px);
 }
+
+.categoryItem.philosophy { background-color: #8b5cf631; }
+.categoryItem.fashion { background-color: #da85c731; }
+.categoryItem.food { background-color: #dc143c33; }
+.categoryItem.culture { background-color: #ffb04f45; }
+.categoryItem.travel { background-color: #ff795736; }
+.categoryItem.coding { background-color: #5e4fff31; }

@@ -1,0 +1,87 @@
+.container {
+  margin-top: 50px;
+  padding: 40px 0px 60px 0px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: var(--softTextColor);
+  gap: 60px;
+  border-top: 1px solid var(--softBg);
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoText {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--textColor);
+}
+
+.desc {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.icons {
+  margin-top: 10px;
+  display: flex;
+  gap: 12px;
+}
+
+.links {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-weight: 300;
+}
+
+.listTitle {
+  font-weight: 600;
+  color: var(--textColor);
+  margin-bottom: 5px;
+}
+
+.list a {
+  transition: color 0.2s ease;
+}
+
+.list a:hover {
+  color: var(--textColor);
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .info {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .links {
+    font-size: 12px;
+  }
+}

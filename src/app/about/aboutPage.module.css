@@ -1,0 +1,169 @@
+.container {
+    padding: 60px 0;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.subtitle {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 14px;
+    color: var(--softTextColor);
+    margin-bottom: 16px;
+}
+
+.title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.highlight {
+    color: crimson;
+}
+
+.tagline {
+    font-size: 18px;
+    color: var(--softTextColor);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.section {
+    margin-bottom: 60px;
+}
+
+.sectionTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.sectionTitle::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: crimson;
+    border-radius: 2px;
+}
+
+.text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--softTextColor);
+}
+
+.values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.valueCard {
+    background-color: var(--softBg);
+    padding: 30px;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.valueCard:hover {
+    transform: translateY(-4px);
+}
+
+.valueIcon {
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+.valueTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.valueDesc {
+    font-size: 14px;
+    color: var(--softTextColor);
+    line-height: 1.6;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.categoryTag {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.categoryTag.philosophy { background-color: #8b5cf631; }
+.categoryTag.fashion { background-color: #da85c731; }
+.categoryTag.food { background-color: #dc143c33; }
+.categoryTag.culture { background-color: #ffb04f45; }
+.categoryTag.travel { background-color: #ff795736; }
+.categoryTag.coding { background-color: #5e4fff31; }
+
+.cta {
+    text-align: center;
+    padding: 60px 40px;
+    background-color: var(--softBg);
+    border-radius: 16px;
+}
+
+.ctaTitle {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.ctaText {
+    font-size: 16px;
+    color: var(--softTextColor);
+    margin-bottom: 24px;
+}
+
+.ctaButton {
+    padding: 12px 32px;
+    background-color: crimson;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.ctaButton:hover {
+    background-color: #b01030;
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .values {
+        grid-template-columns: 1fr;
+    }
+
+    .cta {
+        padding: 40px 20px;
+    }
+}

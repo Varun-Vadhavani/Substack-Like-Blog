@@ -1,0 +1,97 @@
+.container {
+  padding: 40px 0;
+  max-width: 600px;
+}
+
+.loading {
+  padding: 100px 0;
+  text-align: center;
+  color: var(--softTextColor);
+  font-size: 18px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.profileCard {
+  background-color: var(--softBg);
+  padding: 30px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.email {
+  font-size: 14px;
+  color: var(--softTextColor);
+}
+
+.roleBadge {
+  font-size: 13px;
+  color: var(--softTextColor);
+  margin-top: 4px;
+  text-transform: capitalize;
+}
+
+.dangerZone {
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  background-color: rgba(220, 38, 38, 0.05);
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.dangerTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #dc2626;
+  margin-bottom: 10px;
+}
+
+.dangerDesc {
+  font-size: 14px;
+  color: var(--softTextColor);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.deleteBtn {
+  padding: 10px 24px;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.deleteBtn:hover {
+  background-color: #b91c1c;
+}
+
+.deleteBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
