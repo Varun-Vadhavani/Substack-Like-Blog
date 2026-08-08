@@ -50,7 +50,7 @@ const Featured = () => {
     fetchFeatured();
   }, []);
 
-  // Clean HTML tags and decode HTML entities like &nbsp; &#39;
+  // Clean HTML tags and decode HTML entities
   const stripHtml = (html) => {
     if (!html) return "";
     if (typeof window !== "undefined") {
@@ -70,18 +70,6 @@ const Featured = () => {
       .substring(0, 180);
   };
 
-  const title = featuredPost?.title || "The Art of Letting Go: Finding Clarity in a Noisy World";
-  const desc = featuredPost?.desc
-    ? stripHtml(featuredPost.desc)
-    : "Explore how taking a step back and releasing unnecessary distractions can create space for deep creativity, focus, and authentic personal growth.";
-  const img = (featuredPost?.img && featuredPost.img.trim() !== "") ? featuredPost.img : "/p1.jpeg";
-  const category = featuredPost?.catSlug || "Philosophy";
-  const dateStr = featuredPost?.createdAt
-    ? timeAgo(featuredPost.createdAt)
-    : "Featured Story";
-  const slug = featuredPost?.slug;
-  const linkHref = slug ? `/posts/${slug}` : "/blog?cat=philosophy";
-
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
@@ -91,29 +79,40 @@ const Featured = () => {
         </span>
         <span className={styles.cursor}>|</span>
       </h1>
-      <div className={styles.post}>
-        <div className={styles.imageContainer}>
-          <Image
-            src={img}
-            alt="Featured Story"
-            fill
-            className={styles.image}
-            priority
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-        </div>
-        <div className={styles.textContainer}>
-          <div className={styles.meta}>
-            <span className={styles.categoryBadge}>{category}</span>
-            <span className={styles.date}>{dateStr}</span>
+
+      {featuredPost ? (
+        <div className={styles.post}>
+          <div className={styles.imageContainer}>
+            <Image
+              src={
+                featuredPost.img && featuredPost.img.trim() !== ""
+                  ? featuredPost.img
+                  : "/p1.jpeg"
+              }
+              alt={featuredPost.title || "Featured Story"}
+              fill
+              className={styles.image}
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
           </div>
-          <h2 className={styles.postTitle}>{title}</h2>
-          <p className={styles.postDesc}>{desc}</p>
-          <Link href={linkHref} className={styles.link}>
-            Read More
-          </Link>
+          <div className={styles.textContainer}>
+            <div className={styles.meta}>
+              <span className={styles.categoryBadge}>
+                {featuredPost.catSlug || "Philosophy"}
+              </span>
+              <span className={styles.date}>
+                {timeAgo(featuredPost.createdAt)}
+              </span>
+            </div>
+            <h2 className={styles.postTitle}>{featuredPost.title}</h2>
+            <p className={styles.postDesc}>{stripHtml(featuredPost.desc)}</p>
+            <Link href={`/posts/${featuredPost.slug}`} className={styles.link}>
+              Read More
+            </Link>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };
