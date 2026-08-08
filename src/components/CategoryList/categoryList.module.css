@@ -1,77 +1,57 @@
-.container{
-    
+.container {
+    margin-top: 30px;
 }
 
 .title {
-    margin: 50px 0;
+    margin: 40px 0 20px 0;
+    font-size: 28px;
+    font-weight: 700;
 }
 
-.categories{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
 }
 
-.category{
+.category {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-transform: capitalize;
-    width: 15%;
-    height: 80px;
+    height: 70px;
+    padding: 0 16px;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 12px;
+    background-color: rgba(220, 20, 60, 0.08);
+    font-weight: 500;
+    color: var(--textColor);
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.category.philosophy{
-    background-color: #8b5cf631;
+.category:hover {
+    transform: translateY(-3px);
 }
 
-.category.fashion{
-    background-color: #da85c731;
-}
+.category.philosophy { background-color: #8b5cf625; }
+.category.fashion { background-color: #da85c725; }
+.category.food { background-color: #dc143c20; }
+.category.travel { background-color: #ff795725; }
+.category.culture { background-color: #ffb04f25; }
+.category.coding { background-color: #5e4fff25; }
 
-.category.food{
-    background-color: #dc143c33;
-}
-
-.category.travel{
-    background-color: #ff795736;
-}
-
-.category.culture{
-    background-color: #ffb04f45;
-}
-
-.category.coding{
-    background-color: #5e4fff31;
-}
-
-.image{
+.image {
     border-radius: 50%;
+    object-fit: cover;
 }
 
-@media screen and (max-width:1280px) {
-    .category{
-        width: 20%;
+@media screen and (max-width: 640px) {
+    .categories {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
     }
-}
-
-@media screen and (max-width:1024px) {
-    .category{
-        width: 25%;
-    }
-}
-
-@media screen and (max-width:768px) {
-    .category{
-        width: 45%;
-    }
-}
-
-@media screen and (max-width:640px) {
-    .category{
-        width: 100%;
+    .category {
+        height: 60px;
+        font-size: 14px;
     }
 }

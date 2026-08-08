@@ -13,7 +13,7 @@ const MenuPosts = ({ withImage, type = "editors" }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/posts/menu?type=${type}`);
+        const res = await fetch(`/api/posts/menu?type=${type}`, { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           setPosts(data);
@@ -28,14 +28,18 @@ const MenuPosts = ({ withImage, type = "editors" }) => {
   }, [type]);
 
   if (loading) {
-    return <div className={styles.items}>Loading posts...</div>;
+    return <div className={styles.items}>Loading...</div>;
+  }
+
+  if (!posts || posts.length === 0) {
+    return <div className={styles.empty}>No posts published yet.</div>;
   }
 
   return (
     <div className={styles.items}>
       {posts?.map((item) => {
         const img = item.img || "/p1.jpeg";
-        const catStyle = styles[item.catSlug] || "";
+        const catStyle = styles[item.catSlug?.toLowerCase()] || "";
 
         return (
           <Link href={`/posts/${item.slug}`} className={styles.item} key={item.id}>

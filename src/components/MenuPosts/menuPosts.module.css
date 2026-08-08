@@ -6,6 +6,14 @@
     gap: 35px;
 }
 
+.empty {
+    font-size: 14px;
+    color: var(--softTextColor);
+    font-style: italic;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+
 .item {
     display: flex;
     align-items: center;

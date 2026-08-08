@@ -17,29 +17,35 @@ const getData = async () => {
 
 const CategoryList = async () => {
   const data = await getData();
+
   return (
     <ScrollReveal>
       <div className={styles.container}>
         <h1 className={styles.title}>Popular Categories</h1>
         <div className={styles.categories}>
-          {data?.map((item) => (
-            <Link
-              href={`/blog?cat=${item.slug}`}
-              className={`${styles.category} ${styles[item.slug]}`}
-              key={item.id}
-            >
-              {item.img && (
-                <Image
-                  src={item.img}
-                  alt=""
-                  width={32}
-                  height={32}
-                  className={styles.image}
-                />
-              )}
-              {item.title}
-            </Link>
-          ))}
+          {data?.map((item) => {
+            const slugKey = item.slug ? item.slug.toLowerCase() : "";
+            const catClass = styles[slugKey] || "";
+
+            return (
+              <Link
+                href={`/blog?cat=${item.slug}`}
+                className={`${styles.category} ${catClass}`}
+                key={item.id}
+              >
+                {item.img && (
+                  <Image
+                    src={item.img}
+                    alt={item.title}
+                    width={32}
+                    height={32}
+                    className={styles.image}
+                  />
+                )}
+                {item.title}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </ScrollReveal>
