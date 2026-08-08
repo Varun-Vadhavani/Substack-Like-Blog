@@ -38,7 +38,7 @@ const Featured = () => {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const res = await fetch("/api/featured");
+        const res = await fetch("/api/featured", { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           setFeaturedPost(data);
