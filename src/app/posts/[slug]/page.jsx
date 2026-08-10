@@ -30,6 +30,17 @@ const SinglePage = async ({ params }) => {
     notFound();
   }
 
+  // Quill editor stores &nbsp; (non-breaking spaces) between words.
+  // On mobile, browsers treat &nbsp; as unbreakable — the entire paragraph
+  // becomes one giant "word" that breaks at arbitrary character boundaries.
+  // Replacing &nbsp; with regular spaces restores normal word wrapping.
+  const sanitizeHtml = (html) => {
+    if (!html) return "";
+    return html
+      .replace(/&nbsp;/g, " ")
+      .replace(/\u00A0/g, " ");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
@@ -68,7 +79,7 @@ const SinglePage = async ({ params }) => {
         <div className={styles.post}>
           <div
             className={styles.description}
-            dangerouslySetInnerHTML={{ __html: data?.desc }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(data?.desc) }}
           />
           <div className={styles.comment}>
             <Comments postSlug={slug}/>
