@@ -22,9 +22,12 @@
     line-height: 1.15;
     margin-bottom: 35px;
     word-break: normal !important;
+    word-wrap: break-word !important;
     overflow-wrap: break-word !important;
     hyphens: none !important;
     -webkit-hyphens: none !important;
+    -moz-hyphens: none !important;
+    -ms-hyphens: none !important;
 }
 
 .user {
@@ -87,21 +90,28 @@
     -webkit-hyphens: none !important;
 }
 
-.description {
-    max-width: 100%;
-    overflow-wrap: break-word !important;
+.description,
+.description *,
+.description p,
+.description span,
+.description li,
+.description div,
+.description h1,
+.description h2,
+.description h3,
+.description h4,
+.description h5,
+.description h6,
+.description blockquote,
+.description [class*="ql-"] {
     word-break: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
     hyphens: none !important;
     -webkit-hyphens: none !important;
+    -moz-hyphens: none !important;
     -ms-hyphens: none !important;
-}
-
-.description * {
-    word-break: normal !important;
-    overflow-wrap: break-word !important;
-    hyphens: none !important;
-    -webkit-hyphens: none !important;
-    -ms-hyphens: none !important;
+    text-align: left !important;
 }
 
 .description p,
@@ -114,10 +124,6 @@
     line-height: 1.85;
     margin-bottom: 24px;
     color: var(--textColor);
-    word-break: normal !important;
-    overflow-wrap: break-word !important;
-    hyphens: none !important;
-    -webkit-hyphens: none !important;
 }
 
 .description img {
