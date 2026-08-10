@@ -30,15 +30,16 @@ const SinglePage = async ({ params }) => {
     notFound();
   }
 
-  // Quill editor stores &nbsp; (non-breaking spaces) between words.
-  // On mobile, browsers treat &nbsp; as unbreakable — the entire paragraph
-  // becomes one giant "word" that breaks at arbitrary character boundaries.
-  // Replacing &nbsp; with regular spaces restores normal word wrapping.
+  // Quill editor stores &nbsp; (non-breaking spaces) between words,
+  // and also embeds inline background-color/color styles from the theme
+  // active at write-time. Strip both so content adapts to any theme.
   const sanitizeHtml = (html) => {
     if (!html) return "";
     return html
       .replace(/&nbsp;/g, " ")
-      .replace(/\u00A0/g, " ");
+      .replace(/\u00A0/g, " ")
+      .replace(/background-color\s*:\s*[^;"']+;?/gi, "")
+      .replace(/(?<![a-z-])color\s*:\s*[^;"']+;?/gi, "");
   };
 
   return (
