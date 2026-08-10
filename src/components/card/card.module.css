@@ -44,11 +44,25 @@
   text-transform: capitalize;
 }
 
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--textColor);
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+}
+
 .desc {
   font-size: 16px;
   font-weight: 300;
   line-height: 1.6;
   color: var(--softTextColor);
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
 }
 
 .link {
