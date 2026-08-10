@@ -21,7 +21,8 @@
     font-weight: 700;
     line-height: 1.15;
     margin-bottom: 35px;
-    word-break: break-word;
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 .user {
@@ -79,23 +80,27 @@
     width: 100%;
     margin-top: 50px;
     overflow-wrap: break-word;
-    word-wrap: break-word;
+    word-break: normal;
 }
 
 .description {
     max-width: 100%;
     overflow-wrap: break-word;
-    word-wrap: break-word;
+    word-break: normal;
+    hyphens: manual;
 }
 
-.description p {
+.description p,
+.description span,
+.description li {
     font-family: var(--font-serif);
     font-size: 20px;
     font-weight: 400;
     line-height: 1.85;
     margin-bottom: 24px;
     color: var(--textColor);
-    word-break: break-word;
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 .description img {
@@ -109,7 +114,8 @@
     max-width: 100%;
     overflow-x: auto;
     white-space: pre-wrap;
-    word-break: break-word;
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 @media screen and (max-width: 1536px) {
@@ -159,7 +165,9 @@
     height: 220px;
   }
 
-  .description p {
+  .description p,
+  .description span,
+  .description li {
     font-size: 18px;
     line-height: 1.75;
   }
