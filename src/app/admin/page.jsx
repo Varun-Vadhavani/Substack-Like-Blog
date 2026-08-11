@@ -31,24 +31,38 @@ const AdminPage = () => {
 
   const handleDeletePost = async (slug) => {
     if (!confirm("Delete this post and all its comments?")) return;
-    const res = await fetch(`/api/posts/${slug}`, { method: "DELETE" });
-    if (res.ok) {
-      setData((prev) => ({
-        ...prev,
-        posts: prev.posts.filter((p) => p.slug !== slug),
-        comments: prev.comments.filter((c) => c.post?.slug !== slug),
-      }));
+    try {
+      const res = await fetch(`/api/posts/${slug}`, { method: "DELETE" });
+      const json = await res.json();
+      if (res.ok) {
+        setData((prev) => ({
+          ...prev,
+          posts: prev.posts.filter((p) => p.slug !== slug),
+          comments: prev.comments.filter((c) => c.post?.slug !== slug),
+        }));
+      } else {
+        alert(`Failed to delete post: ${json.message}`);
+      }
+    } catch (err) {
+      alert(`Error deleting post: ${err.message}`);
     }
   };
 
   const handleDeleteComment = async (id) => {
     if (!confirm("Delete this comment?")) return;
-    const res = await fetch(`/api/comments/${id}`, { method: "DELETE" });
-    if (res.ok) {
-      setData((prev) => ({
-        ...prev,
-        comments: prev.comments.filter((c) => c.id !== id),
-      }));
+    try {
+      const res = await fetch(`/api/comments/${id}`, { method: "DELETE" });
+      const json = await res.json();
+      if (res.ok) {
+        setData((prev) => ({
+          ...prev,
+          comments: prev.comments.filter((c) => c.id !== id),
+        }));
+      } else {
+        alert(`Failed to delete comment: ${json.message}`);
+      }
+    } catch (err) {
+      alert(`Error deleting comment: ${err.message}`);
     }
   };
 
