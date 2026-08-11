@@ -29,16 +29,16 @@ const AdminPage = () => {
     fetchData();
   }, [status, session, router]);
 
-  const handleDeletePost = async (slug) => {
+  const handleDeletePost = async (postId) => {
     if (!confirm("Delete this post and all its comments?")) return;
     try {
-      const res = await fetch(`/api/posts/${slug}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin?postId=${postId}`, { method: "DELETE" });
       const json = await res.json();
       if (res.ok) {
         setData((prev) => ({
           ...prev,
-          posts: prev.posts.filter((p) => p.slug !== slug),
-          comments: prev.comments.filter((c) => c.post?.slug !== slug),
+          posts: prev.posts.filter((p) => p.id !== postId),
+          comments: prev.comments.filter((c) => c.post?.id !== postId),
         }));
       } else {
         alert(`Failed to delete post: ${json.message}`);
@@ -48,15 +48,15 @@ const AdminPage = () => {
     }
   };
 
-  const handleDeleteComment = async (id) => {
+  const handleDeleteComment = async (commentId) => {
     if (!confirm("Delete this comment?")) return;
     try {
-      const res = await fetch(`/api/comments/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin?commentId=${commentId}`, { method: "DELETE" });
       const json = await res.json();
       if (res.ok) {
         setData((prev) => ({
           ...prev,
-          comments: prev.comments.filter((c) => c.id !== id),
+          comments: prev.comments.filter((c) => c.id !== commentId),
         }));
       } else {
         alert(`Failed to delete comment: ${json.message}`);
@@ -120,7 +120,7 @@ const AdminPage = () => {
                   <td>
                     <button
                       className={styles.deleteBtn}
-                      onClick={() => handleDeletePost(post.slug)}
+                      onClick={() => handleDeletePost(post.id)}
                     >
                       Delete
                     </button>
