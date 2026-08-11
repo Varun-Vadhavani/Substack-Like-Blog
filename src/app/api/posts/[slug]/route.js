@@ -2,6 +2,8 @@ import { getAuthSession } from "@/utils/auth";
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 // GET SINGLE POST
 export const GET = async (req, { params }) => {
   const { slug } = params;
@@ -13,11 +15,12 @@ export const GET = async (req, { params }) => {
       include: { user: true },
     });
 
-    return new NextResponse(JSON.stringify(post, { status: 200 }));
+    return NextResponse.json(post, { status: 200 });
   } catch (err) {
     console.log(err);
-    return new NextResponse(
-      JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
+    return NextResponse.json(
+      { message: "Something went wrong!" },
+      { status: 500 }
     );
   }
 };
@@ -25,31 +28,32 @@ export const GET = async (req, { params }) => {
 // DELETE A POST
 export const DELETE = async (req, { params }) => {
   const { slug } = params;
-  const session = await getAuthSession();
-
-  if (!session) {
-    return new NextResponse(
-      JSON.stringify({ message: "Not Authenticated!" }),
-      { status: 401 }
-    );
-  }
 
   try {
+    const session = await getAuthSession();
+
+    if (!session) {
+      return NextResponse.json(
+        { message: "Not Authenticated!" },
+        { status: 401 }
+      );
+    }
+
     const post = await prisma.post.findUnique({
       where: { slug },
     });
 
     if (!post) {
-      return new NextResponse(
-        JSON.stringify({ message: "Post not found!" }),
+      return NextResponse.json(
+        { message: "Post not found!" },
         { status: 404 }
       );
     }
 
     // Allow only post owner or admin
     if (post.userEmail !== session.user.email && session.user.role !== "admin") {
-      return new NextResponse(
-        JSON.stringify({ message: "Not Authorized!" }),
+      return NextResponse.json(
+        { message: "Not Authorized!" },
         { status: 403 }
       );
     }
@@ -58,13 +62,11 @@ export const DELETE = async (req, { params }) => {
     await prisma.comment.deleteMany({ where: { postSlug: slug } });
     await prisma.post.delete({ where: { slug } });
 
-    return new NextResponse(JSON.stringify({ message: "Post deleted!" }), {
-      status: 200,
-    });
+    return NextResponse.json({ message: "Post deleted!" }, { status: 200 });
   } catch (err) {
     console.log(err);
-    return new NextResponse(
-      JSON.stringify({ message: "Something went wrong!" }),
+    return NextResponse.json(
+      { message: "Something went wrong!" },
       { status: 500 }
     );
   }
