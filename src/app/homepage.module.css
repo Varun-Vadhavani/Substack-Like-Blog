@@ -1,4 +1,40 @@
-.content {
-    display: flex;
-    gap: 50px;
+/* ── Homepage Two-Column Layout ── */
+.pageWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Main feed — capped at 680px like Substack */
+.feedColumn {
+  flex: 1;
+  min-width: 0;
+  max-width: 680px;
+}
+
+/* Right panel — sticky, 260px wide, only on large screens */
+.rightPanel {
+  width: 260px;
+  flex-shrink: 0;
+}
+
+/* Hide right panel on screens smaller than 1280px */
+@media screen and (max-width: 1279px) {
+  .rightPanel {
+    display: none;
+  }
+
+  .feedColumn {
+    max-width: 100%;
+  }
+}
+
+/* Legacy .container kept for other pages that might reference it */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
 }

@@ -1,8 +1,11 @@
-import Navbar from "@/components/navbar/Navbar";
 import "./globals.css";
 import { Inter, Lora } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
+import Sidebar from "@/components/sidebar/Sidebar";
+import BottomBar from "@/components/bottomBar/BottomBar";
+import NoteModal from "@/components/createNote/NoteModal";
 import { ThemeContextProvider } from "@/context/ThemeContext";
+import { CreateNoteProvider } from "@/context/CreateNoteContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";
 
@@ -28,13 +31,17 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>
-              <div className="container">
-                <div className="wrapper">
-                  <Navbar />
-                  {children}
-                  <Footer />
+              <CreateNoteProvider>
+                <div className="container">
+                  <Sidebar />
+                  <BottomBar />
+                  <NoteModal />
+                  <main className="mainContent">
+                    {children}
+                    <Footer />
+                  </main>
                 </div>
-              </div>
+              </CreateNoteProvider>
             </ThemeProvider>
           </ThemeContextProvider>
         </AuthProvider>

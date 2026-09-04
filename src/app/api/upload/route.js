@@ -22,13 +22,16 @@ export const POST = async (req) => {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to Cloudinary
+    // Upload to Cloudinary (resource_type: "auto" allows images and videos)
     const result = await new Promise((resolve, reject) => {
       cloudinary.uploader
-        .upload_stream({ folder: "blog" }, (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
-        })
+        .upload_stream(
+          { folder: "blog", resource_type: "auto" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        )
         .end(buffer);
     });
 

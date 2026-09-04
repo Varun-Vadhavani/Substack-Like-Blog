@@ -1,0 +1,391 @@
+/* ==========================================================================
+   Sidebar — Fixed Left Vertical Navigation (Substack Style)
+   ========================================================================== */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
+  background-color: var(--bg);
+  border-right: 1px solid rgba(128, 128, 128, 0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  z-index: 900;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: width 0.25s ease;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Logo ── */
+.logoSection {
+  margin-bottom: 28px;
+  padding: 0 8px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--textColor);
+}
+
+.logoIcon {
+  width: 36px;
+  height: 36px;
+  background-color: crimson;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ── Navigation ── */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: var(--softTextColor);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.navItem:hover {
+  background-color: var(--softBg);
+  color: var(--textColor);
+}
+
+.navItemActive {
+  color: crimson !important;
+  font-weight: 700;
+  background-color: rgba(220, 20, 60, 0.08);
+}
+
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.navLabel {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ── Create / + Button & Dropdown ── */
+.createWrapper {
+  position: relative;
+  margin-top: 12px;
+}
+
+.createBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 18px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(220, 20, 60, 0.25);
+}
+
+.createBtn:hover {
+  background-color: #b01030;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(220, 20, 60, 0.35);
+}
+
+.createBtnActive {
+  background-color: #900c26;
+}
+
+.createIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.createLabel {
+  white-space: nowrap;
+}
+
+/* Dropdown Popup */
+.createDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 230px;
+  background-color: var(--bg);
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: dropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dropdownOption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  width: 100%;
+}
+
+.dropdownOption:hover {
+  background-color: var(--softBg);
+}
+
+.optionIconWrapper {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background-color: rgba(220, 20, 60, 0.08);
+  color: crimson;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.optionContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--textColor);
+}
+
+.optionDesc {
+  font-size: 11px;
+  color: var(--softTextColor);
+}
+
+/* ── Bottom Section ── */
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  margin-top: auto;
+}
+
+/* ── User Profile ── */
+.userSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.userSection:hover {
+  background-color: var(--softBg);
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--textColor);
+  flex: 1;
+  min-width: 0;
+}
+
+.userAvatarWrapper {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: crimson;
+}
+
+.userAvatar {
+  object-fit: cover;
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logoutBtn {
+  background: none;
+  border: none;
+  color: var(--softTextColor);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.logoutBtn:hover {
+  color: crimson;
+  background-color: rgba(220, 20, 60, 0.08);
+}
+
+/* ==========================================================================
+   Responsive: Tablet — Icon-Only Collapsed Sidebar
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    width: 68px;
+    padding: 24px 10px;
+    align-items: center;
+  }
+
+  .logoSection {
+    padding: 0;
+    margin-bottom: 24px;
+  }
+
+  .logoText {
+    display: none;
+  }
+
+  .navLabel {
+    display: none;
+  }
+
+  .navItem {
+    justify-content: center;
+    padding: 12px;
+    width: 48px;
+    height: 48px;
+    gap: 0;
+  }
+
+  .createWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .createBtn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 0;
+  }
+
+  .createLabel {
+    display: none;
+  }
+
+  .createDropdown {
+    left: 60px;
+    top: -10px;
+  }
+
+  .userName {
+    display: none;
+  }
+
+  .userSection {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .userProfile {
+    justify-content: center;
+  }
+
+  .logoutBtn {
+    padding: 8px;
+  }
+}
+
+/* ==========================================================================
+   Responsive: Mobile — Hide Sidebar Entirely
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}

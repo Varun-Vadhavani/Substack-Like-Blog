@@ -1,19 +1,57 @@
-import CardList from "@/components/CardList/CardList";
-import styles from "./blogPage.module.css";
-import Menu from "@/components/Menu/Menu";
+import prisma from "@/utils/connect";
+import ExploreClient from "./ExploreClient";
 
-const BlogPage = ({ searchParams }) => {
-  const page = parseInt(searchParams.page) || 1;
+export const dynamic = "force-dynamic";
+
+const getCategories = async () => {
+  try {
+    const categories = await prisma.category.findMany();
+    return categories;
+  } catch (err) {
+    console.error("getCategories error:", err);
+    return [];
+  }
+};
+
+const getPosts = async (cat) => {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        status: "published",
+        ...(cat ? { catSlug: cat } : {}),
+      },
+      orderBy: { createdAt: "desc" },
+      include: {
+        user: true,
+        _count: {
+          select: {
+            likes: true,
+            comments: true,
+          },
+        },
+      },
+    });
+    return posts;
+  } catch (err) {
+    console.error("getPosts error:", err);
+    return [];
+  }
+};
+
+const BlogPage = async ({ searchParams }) => {
   const { cat } = searchParams;
 
+  const [categories, posts] = await Promise.all([
+    getCategories(),
+    getPosts(cat),
+  ]);
+
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>{cat} Blog</h1>
-      <div className={styles.content}>
-        <CardList page={page} cat={cat}/>
-        <Menu />
-      </div>
-    </div>
+    <ExploreClient
+      initialCategories={categories}
+      initialPosts={posts}
+      catParam={cat}
+    />
   );
 };
 

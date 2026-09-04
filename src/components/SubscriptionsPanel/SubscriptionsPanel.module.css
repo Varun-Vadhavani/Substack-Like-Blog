@@ -1,0 +1,218 @@
+/* ── Subscriptions Right Panel ── */
+.panel {
+  width: 260px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 32px;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Only show on large screens */
+}
+
+/* ── Search Bar ── */
+.searchWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  color: var(--softTextColor);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  background-color: var(--softBg);
+  color: var(--textColor);
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.searchInput:focus {
+  border-color: rgba(128, 128, 128, 0.4);
+  background-color: var(--bg);
+}
+
+/* ── Section Block ── */
+.section {
+  background-color: var(--bg);
+  border-radius: 14px;
+  border: 1px solid rgba(128, 128, 128, 0.12);
+  padding: 18px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--textColor);
+  margin-bottom: 16px;
+  font-family: var(--font-serif);
+}
+
+/* ── Subscriptions Grid ── */
+.subsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 8px;
+}
+
+.subItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.subItem:hover .avatarWrap {
+  transform: scale(1.08);
+}
+
+.avatarWrap {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #dc143c;
+  border: 2px solid rgba(128, 128, 128, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.avatar {
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.onlineDot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff5722;
+  border: 2px solid var(--bg);
+}
+
+.subName {
+  font-size: 11px;
+  color: var(--softTextColor);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70px;
+}
+
+/* ── Loading Skeleton ── */
+.loadingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 8px;
+}
+
+.skeletonItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.skeletonAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, var(--softBg) 25%, rgba(128,128,128,0.15) 50%, var(--softBg) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonName {
+  width: 50px;
+  height: 10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--softBg) 25%, rgba(128,128,128,0.15) 50%, var(--softBg) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Empty State ── */
+.empty {
+  font-size: 13px;
+  color: var(--softTextColor);
+  text-align: center;
+  padding: 16px 0;
+  line-height: 1.5;
+}
+
+/* ── See All Button ── */
+.seeAllBtn {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff5722;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.seeAllBtn:hover {
+  background-color: rgba(255, 87, 34, 0.08);
+}
+
+/* ── Sign In Prompt ── */
+.loginPrompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0 4px;
+  background: var(--bg);
+  border-radius: 14px;
+  border: 1px solid rgba(128,128,128,0.12);
+  padding: 20px 16px;
+}
+
+.loginPrompt p {
+  font-size: 13px;
+  color: var(--softTextColor);
+  text-align: center;
+}
+
+.signInBtn {
+  padding: 8px 22px;
+  background-color: #ff5722;
+  color: white;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.signInBtn:hover {
+  background-color: #e64a19;
+}

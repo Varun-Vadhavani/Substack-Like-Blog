@@ -1,0 +1,542 @@
+/* ==========================================================================
+   Create Note — Trigger Bar & Substack Composer Modal
+   ========================================================================== */
+
+/* ── Home Trigger Bar ── */
+.triggerContainer {
+  background-color: var(--softBg);
+  border-radius: 16px;
+  padding: 14px 20px;
+  margin: 20px 0 28px 0;
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.triggerContainer:hover {
+  border-color: rgba(128, 128, 128, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.05);
+}
+
+.triggerAvatarWrapper {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #dc143c;
+}
+
+.triggerAvatar {
+  object-fit: cover;
+}
+
+.triggerPlaceholder {
+  flex: 1;
+  color: var(--softTextColor);
+  font-size: 15px;
+  font-weight: 500;
+  user-select: none;
+}
+
+/* ── Modal Backdrop & Box ── */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modalContainer {
+  background-color: var(--bg);
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 560px;
+  padding: 22px 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  animation: modalScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── Modal Top Header ── */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modalAvatarWrapper {
+  width: 42px;
+  height: 42px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #dc143c;
+}
+
+.modalAvatar {
+  object-fit: cover;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--textColor);
+  line-height: 1.2;
+}
+
+.userSubtitle {
+  font-size: 12px;
+  color: var(--softTextColor);
+  margin-top: 2px;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.draftsBtn {
+  background-color: var(--softBg);
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  color: var(--textColor);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.draftsBtn:hover,
+.draftsBtnActive {
+  background-color: rgba(220, 20, 60, 0.1);
+  border-color: crimson;
+  color: crimson;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--softTextColor);
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+  background-color: var(--softBg);
+  color: var(--textColor);
+}
+
+/* ── Note Composer Textarea ── */
+.modalTextarea {
+  width: 100%;
+  min-height: 120px;
+  max-height: 280px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--textColor);
+  font-family: inherit;
+  resize: vertical;
+  padding: 4px 0;
+}
+
+.modalTextarea::placeholder {
+  color: var(--softTextColor);
+  opacity: 0.7;
+}
+
+/* ── Multi-Photo Preview Grid inside Composer ── */
+.multiImageGrid {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+  border-radius: 14px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.multiImageGrid[data-count="1"] {
+  grid-template-columns: 1fr;
+  height: auto;
+  max-height: 280px;
+}
+
+.multiImageGrid[data-count="1"] .imagePreviewItem {
+  height: 240px;
+}
+
+.multiImageGrid[data-count="2"] {
+  grid-template-columns: 1fr 1fr;
+  height: 190px;
+}
+
+.multiImageGrid[data-count="3"] {
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: 210px;
+}
+
+.multiImageGrid[data-count="3"] .imagePreviewItem:first-child {
+  grid-row: span 2;
+}
+
+.multiImageGrid[data-count="4"] {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: 220px;
+}
+
+.imagePreviewItem {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 90px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgba(128, 128, 128, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.previewImage {
+  object-fit: contain;
+}
+
+.removeImageBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  z-index: 2;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.removeImageBtn:hover {
+  transform: scale(1.15);
+  background: crimson;
+}
+
+/* ── Upload & Status Indicators ── */
+.uploadingIndicator {
+  font-size: 13px;
+  color: #ff5722;
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.feedbackMsg {
+  font-size: 13px;
+  color: #10b981;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+.errorMsg {
+  font-size: 13px;
+  color: crimson;
+  font-weight: 500;
+  margin: 6px 0;
+}
+
+/* ── Modal Footer Toolbar ── */
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+}
+
+.mediaActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.photoButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background-color: var(--softBg);
+  border-radius: 20px;
+  color: var(--textColor);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  border: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+.photoButton:hover {
+  background-color: rgba(220, 20, 60, 0.1);
+  border-color: crimson;
+  color: crimson;
+}
+
+.footerRightActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.saveDraftBtn {
+  background-color: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  color: var(--textColor);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveDraftBtn:hover:not(:disabled) {
+  background-color: var(--softBg);
+  border-color: rgba(128, 128, 128, 0.5);
+}
+
+.saveDraftBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.postButton {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 8px 22px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.25);
+}
+
+.postButton:hover:not(:disabled) {
+  background-color: #b01030;
+  transform: translateY(-1px);
+}
+
+.postButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Drafts Drawer inside Modal ── */
+.draftsContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  max-height: 380px;
+}
+
+.draftsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+}
+
+.draftsHeader h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--textColor);
+  margin: 0;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: crimson;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.backBtn:hover {
+  background-color: rgba(220, 20, 60, 0.1);
+}
+
+.draftsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.draftItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background-color: var(--softBg);
+  border-radius: 12px;
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.draftItem:hover {
+  border-color: crimson;
+  transform: translateX(2px);
+}
+
+.activeDraftItem {
+  border-color: crimson;
+  background-color: rgba(220, 20, 60, 0.06);
+}
+
+.draftTextContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.draftPreviewText {
+  font-size: 14px;
+  color: var(--textColor);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 0 4px 0;
+}
+
+.draftTime {
+  font-size: 12px;
+  color: var(--softTextColor);
+}
+
+.draftThumb {
+  width: 44px;
+  height: 44px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: rgba(128, 128, 128, 0.1);
+}
+
+.deleteDraftBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  font-size: 16px;
+  border-radius: 6px;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.deleteDraftBtn:hover {
+  opacity: 1;
+  background-color: rgba(220, 20, 60, 0.1);
+  transform: scale(1.15);
+}
+
+.loadingDrafts,
+.emptyDrafts {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--softTextColor);
+  font-size: 14px;
+}
+
+@media screen and (max-width: 640px) {
+  .modalContainer {
+    padding: 18px;
+    border-radius: 16px;
+  }
+  .triggerContainer {
+    padding: 12px 16px;
+  }
+}

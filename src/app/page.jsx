@@ -1,22 +1,22 @@
-import Footer from "@/components/Footer/Footer";
 import styles from "./homepage.module.css";
-import Navbar from "@/components/navbar/Navbar";
 import Featured from "@/components/Featured/Featured";
-import CategoryList from "@/components/CategoryList/CategoryList";
+import CreateNote from "@/components/createNote/CreateNote";
 import CardList from "@/components/CardList/CardList";
-import Menu from "@/components/Menu/Menu";
+import SubscriptionsPanel from "@/components/SubscriptionsPanel/SubscriptionsPanel";
 
-export default function Home({ searchParams }) {
-
-  const page = parseInt(searchParams.page) || 1;
-
+export default function Home() {
   return (
-    <div className={styles.container}>
-      <Featured />
-      <CategoryList />
-      <div className={styles.content}>
-        <CardList page={page} />
-        <Menu />
+    <div className={styles.pageWrapper}>
+      {/* Main Feed Column */}
+      <div className={styles.feedColumn}>
+        <Featured />
+        <CreateNote />
+        <CardList />
+      </div>
+
+      {/* Right Subscriptions Panel — big screens only */}
+      <div className={styles.rightPanel}>
+        <SubscriptionsPanel />
       </div>
     </div>
   );

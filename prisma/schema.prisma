@@ -35,17 +35,22 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid()) @map("_id")
+  id            String         @id @default(cuid()) @map("_id")
   name          String?
-  email         String    @unique
+  username      String?        @unique
+  email         String         @unique
   emailVerified DateTime?
   image         String?
   password      String?
-  role          String    @default("user")
+  role          String         @default("user")
   accounts      Account[]
   sessions      Session[]
   Post          Post[]
   Comment       Comment[]
+  likes         Like[]
+  savedPosts    SavedPost[]
+  subscriptions Subscription[] @relation("UserSubscriptions")
+  subscribers   Subscription[] @relation("UserSubscribers")
 }
 
 model VerificationToken {
@@ -65,18 +70,23 @@ model Category {
 }
 
 model Post {
-  id        String    @id @default(cuid()) @map("_id")
-  createdAt DateTime  @default(now())
-  slug      String    @unique
+  id        String      @id @default(cuid()) @map("_id")
+  createdAt DateTime    @default(now())
+  slug      String      @unique
   title     String
   desc      String
   img       String?
-  views     Int       @default(0)
-  catSlug   String
-  cat       Category  @relation(fields: [catSlug], references: [slug])
+  images    String[]    @default([])
+  views     Int         @default(0)
+  type      String      @default("article")
+  status    String      @default("published")
+  catSlug   String?
+  cat       Category?   @relation(fields: [catSlug], references: [slug])
   userEmail String
-  user      User      @relation(fields: [userEmail], references: [email])
+  user      User        @relation(fields: [userEmail], references: [email])
   comments  Comment[]
+  likes     Like[]
+  savedBy   SavedPost[]
 }
 
 model Comment {
@@ -87,4 +97,37 @@ model Comment {
   user      User     @relation(fields: [userEmail], references: [email])
   postSlug  String
   post      Post     @relation(fields: [postSlug], references: [slug])
+}
+
+model Like {
+  id        String   @id @default(cuid()) @map("_id")
+  createdAt DateTime @default(now())
+  userEmail String
+  user      User     @relation(fields: [userEmail], references: [email])
+  postSlug  String
+  post      Post     @relation(fields: [postSlug], references: [slug])
+
+  @@unique([userEmail, postSlug])
+}
+
+model SavedPost {
+  id        String   @id @default(cuid()) @map("_id")
+  createdAt DateTime @default(now())
+  userEmail String
+  user      User     @relation(fields: [userEmail], references: [email])
+  postSlug  String
+  post      Post     @relation(fields: [postSlug], references: [slug])
+
+  @@unique([userEmail, postSlug])
+}
+
+model Subscription {
+  id              String   @id @default(cuid()) @map("_id")
+  createdAt       DateTime @default(now())
+  subscriberEmail String
+  subscriber      User     @relation("UserSubscriptions", fields: [subscriberEmail], references: [email])
+  authorEmail     String
+  author          User     @relation("UserSubscribers", fields: [authorEmail], references: [email])
+
+  @@unique([subscriberEmail, authorEmail])
 }

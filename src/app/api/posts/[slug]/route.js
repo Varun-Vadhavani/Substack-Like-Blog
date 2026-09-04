@@ -58,8 +58,10 @@ export const DELETE = async (req, { params }) => {
       );
     }
 
-    // Delete comments first (relation constraint)
+    // Delete related records first (comments, likes, savedPosts)
     await prisma.comment.deleteMany({ where: { postSlug: slug } });
+    await prisma.like.deleteMany({ where: { postSlug: slug } });
+    await prisma.savedPost.deleteMany({ where: { postSlug: slug } });
     await prisma.post.delete({ where: { slug } });
 
     return NextResponse.json({ message: "Post deleted!" }, { status: 200 });
