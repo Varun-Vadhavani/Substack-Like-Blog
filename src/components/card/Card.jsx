@@ -258,7 +258,7 @@ const TopActions = ({
           }`}
           onClick={handleToggleSubscribe}
         >
-          {isSubscribed ? "Subscribed ✓" : "Subscribe"}
+          {isSubscribed ? "Subscribed" : "Subscribe"}
         </button>
       )}
 
@@ -468,12 +468,15 @@ const Card = ({ item, onRemoveFromSaved }) => {
         {/* Content Section */}
         {isNote ? (
           /* ==================== NOTE CARD ==================== */
-          <div className={styles.noteCardBox}>
-            <div className={styles.noteBody}>
-              {stripHtml(item?.desc) || item?.desc}
-            </div>
+          <div className={styles.noteContainer}>
+            {/* Note text above images */}
+            {item?.desc && (
+              <div className={styles.noteBody}>
+                {stripHtml(item?.desc) || item?.desc}
+              </div>
+            )}
 
-            {/* Substack Multi-Photo Collage Grid (1, 2, 3, 4 Photos) */}
+            {/* Substack-style Photos (Full uncropped, side-by-side gallery if multiple) */}
             {(() => {
               const noteImages =
                 item?.images && item.images.length > 0
@@ -486,34 +489,26 @@ const Card = ({ item, onRemoveFromSaved }) => {
 
               if (noteImages.length === 1) {
                 return (
-                  <div className={styles.noteGrid} data-count="1">
-                    <div className={styles.noteGridItem}>
-                      <Image
-                        src={noteImages[0]}
-                        alt="Note photo"
-                        width={680}
-                        height={500}
-                        className={styles.singleNoteImg}
-                        sizes="(max-width: 768px) 100vw, 680px"
-                      />
-                    </div>
+                  <div className={styles.noteSingleImageWrapper}>
+                    <img
+                      src={noteImages[0]}
+                      alt="Note photo"
+                      className={styles.noteSingleImage}
+                      loading="lazy"
+                    />
                   </div>
                 );
               }
 
               return (
-                <div
-                  className={styles.noteGrid}
-                  data-count={Math.min(noteImages.length, 4)}
-                >
-                  {noteImages.slice(0, 4).map((imgUrl, idx) => (
-                    <div key={idx} className={styles.noteGridItem}>
-                      <Image
+                <div className={styles.noteGalleryScroll}>
+                  {noteImages.map((imgUrl, idx) => (
+                    <div key={idx} className={styles.noteGalleryItem}>
+                      <img
                         src={imgUrl}
                         alt={`Note photo ${idx + 1}`}
-                        fill
-                        className={styles.noteGridImage}
-                        sizes="(max-width: 768px) 100vw, 680px"
+                        className={styles.noteGalleryImage}
+                        loading="lazy"
                       />
                     </div>
                   ))}
