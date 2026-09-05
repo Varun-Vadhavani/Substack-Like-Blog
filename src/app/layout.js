@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter, Lora } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
+import MobileHeader from "@/components/mobileHeader/MobileHeader";
 import Sidebar from "@/components/sidebar/Sidebar";
 import BottomBar from "@/components/bottomBar/BottomBar";
 import NoteModal from "@/components/createNote/NoteModal";
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
             <ThemeProvider>
               <CreateNoteProvider>
                 <div className="container">
+                  <MobileHeader />
                   <Sidebar />
                   <BottomBar />
                   <NoteModal />

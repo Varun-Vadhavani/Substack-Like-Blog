@@ -157,6 +157,7 @@ const Sidebar = () => {
             >
               <span className={styles.navIcon}>{item.icon}</span>
               <span className={styles.navLabel}>{item.label}</span>
+              <span className={styles.tooltip}>{item.label}</span>
             </Link>
           ))}
 
@@ -176,6 +177,7 @@ const Sidebar = () => {
               </svg>
             </span>
             <span className={styles.createLabel}>New Post</span>
+            <span className={styles.tooltip}>New Post</span>
           </button>
 
           {/* Popup Choice Menu */}
@@ -252,6 +254,9 @@ const Sidebar = () => {
           <span className={styles.navLabel}>
             {theme === "dark" ? "Light mode" : "Dark mode"}
           </span>
+          <span className={styles.tooltip}>
+            {theme === "dark" ? "Light mode" : "Dark mode"}
+          </span>
         </button>
 
         {/* User Section */}
@@ -267,6 +272,7 @@ const Sidebar = () => {
                 />
               </div>
               <span className={styles.userName}>{session?.user?.name}</span>
+              <span className={styles.tooltip}>Profile</span>
             </Link>
             <button
               type="button"
@@ -279,6 +285,7 @@ const Sidebar = () => {
                 <polyline points="16 17 21 12 16 7" />
                 <line x1="21" y1="12" x2="9" y2="12" />
               </svg>
+              <span className={styles.tooltip}>Sign Out</span>
             </button>
           </div>
         ) : (
@@ -291,6 +298,7 @@ const Sidebar = () => {
               </svg>
             </span>
             <span className={styles.navLabel}>Login</span>
+            <span className={styles.tooltip}>Login</span>
           </Link>
         )}
       </div>

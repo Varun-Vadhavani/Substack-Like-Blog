@@ -75,19 +75,19 @@ a {
     max-width: 100%;
 }
 
-/* Tablet: sidebar collapses to icon-only */
-@media screen and (max-width: 1024px) {
+/* Tablet / Smaller screens: sidebar collapses to icon-only */
+@media screen and (max-width: 960px) {
     .mainContent {
         margin-left: var(--sidebar-collapsed);
-        padding: 24px 32px;
+        padding: 24px 28px;
     }
 }
 
-/* Mobile: no sidebar, bottom bar instead */
+/* Mobile: no sidebar, top mobile header + bottom bar instead */
 @media screen and (max-width: 768px) {
     .mainContent {
         margin-left: 0;
-        padding: 20px 20px 76px 20px; /* extra bottom padding for bottom bar */
+        padding: 66px 16px 76px 16px; /* top padding for mobile header, bottom for bottom bar */
     }
 }
 

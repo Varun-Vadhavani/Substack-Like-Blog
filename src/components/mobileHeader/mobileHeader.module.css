@@ -1,0 +1,80 @@
+/* ==========================================================================
+   MobileHeader — Top Header on Mobile Only (<= 768px)
+   ========================================================================== */
+
+.mobileHeader {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .mobileHeader {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 54px;
+    background-color: var(--bg);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 850;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--textColor);
+  }
+
+  .logoIcon {
+    width: 28px;
+    height: 28px;
+    background-color: crimson;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .logoText {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .actionBtn {
+    background: transparent;
+    border: none;
+    color: var(--textColor);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease;
+    text-decoration: none;
+  }
+
+  .actionBtn:hover {
+    background-color: var(--softBg);
+  }
+}

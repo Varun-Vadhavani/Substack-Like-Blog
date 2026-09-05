@@ -33,7 +33,8 @@ const Featured = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        <b>Hey, welcome to WriteSpace!</b> Discover{" "}
+        <b>Hey, welcome to WriteSpace!</b><br /> 
+        Discover{" "}
         <span className={styles.typedText}>
           {words[index].substring(0, subIndex)}
         </span>
