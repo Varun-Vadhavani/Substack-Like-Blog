@@ -130,7 +130,7 @@ const EngagementBar = ({ slug, initialLikeCount, commentCount }) => {
       </button>
 
       {/* Comment Button */}
-      <Link href={`/posts/${slug}`} className={styles.engageBtn} title="Comments">
+      <Link href={`/posts/${slug}#comments`} className={styles.engageBtn} title="Comments">
         <CommentIcon />
         {commentCount > 0 && (
           <span className={styles.engageCount}>{commentCount}</span>
@@ -490,6 +490,7 @@ const Card = ({ item, onRemoveFromSaved }) => {
               if (noteImages.length === 1) {
                 return (
                   <div className={styles.noteSingleImageWrapper}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={noteImages[0]}
                       alt="Note photo"
@@ -504,6 +505,7 @@ const Card = ({ item, onRemoveFromSaved }) => {
                 <div className={styles.noteGalleryScroll}>
                   {noteImages.map((imgUrl, idx) => (
                     <div key={idx} className={styles.noteGalleryItem}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={imgUrl}
                         alt={`Note photo ${idx + 1}`}

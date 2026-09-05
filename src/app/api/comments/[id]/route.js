@@ -37,9 +37,30 @@ export const DELETE = async (req, { params }) => {
       );
     }
 
+    // Find all replies to this comment
+    const replies = await prisma.comment.findMany({
+      where: { parentId: id },
+      select: { id: true },
+    });
+    const replyIds = replies.map((r) => r.id);
+    const allCommentIdsToDelete = [id, ...replyIds];
+
+    // Delete comment likes for this comment and its replies
+    await prisma.commentLike.deleteMany({
+      where: { commentId: { in: allCommentIdsToDelete } },
+    });
+
+    // Delete all replies first
+    if (replyIds.length > 0) {
+      await prisma.comment.deleteMany({
+        where: { parentId: id },
+      });
+    }
+
+    // Delete the comment itself
     await prisma.comment.delete({ where: { id } });
 
-    return NextResponse.json({ message: "Comment deleted!" }, { status: 200 });
+    return NextResponse.json({ message: "Comment and any replies deleted!" }, { status: 200 });
   } catch (err) {
     console.log(err);
     return NextResponse.json(

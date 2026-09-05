@@ -4,6 +4,8 @@ import CreateNote from "@/components/createNote/CreateNote";
 import CardList from "@/components/CardList/CardList";
 import SubscriptionsPanel from "@/components/SubscriptionsPanel/SubscriptionsPanel";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <div className={styles.pageWrapper}>

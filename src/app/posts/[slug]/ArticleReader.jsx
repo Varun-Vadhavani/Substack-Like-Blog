@@ -81,6 +81,35 @@ const ArticleReader = ({ post }) => {
       .catch(() => {});
   }, [session, post.userEmail, post.slug]);
 
+  // Auto-scroll to #comments if page was loaded with #comments hash
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash === "#comments") {
+      const timer = setTimeout(() => {
+        const el = document.getElementById("comments");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 350);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // Smooth scroll to comments section on clicking comment button
+  const scrollToComments = (e) => {
+    if (e) e.preventDefault();
+    const el = document.getElementById("comments");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (window.location.hash !== "#comments") {
+        window.history.replaceState(null, "", "#comments");
+      }
+      setTimeout(() => {
+        const textarea = el.querySelector("textarea");
+        if (textarea) textarea.focus();
+      }, 600);
+    }
+  };
+
   // Close menu on outside click
   useEffect(() => {
     const handleClick = (e) => {
@@ -200,7 +229,7 @@ const ArticleReader = ({ post }) => {
               className={isSubscribed ? styles.subscribedBtn : styles.subscribeBtn}
               onClick={handleSubscribe}
             >
-              {isSubscribed ? "Subscribed ✓" : "Subscribe"}
+              {isSubscribed ? "Subscribed" : "Subscribe"}
             </button>
           )}
 
@@ -335,12 +364,18 @@ const ArticleReader = ({ post }) => {
         </button>
 
         {/* Comments */}
-        <a href="#comments" className={styles.engageBtn}>
+        <button
+          type="button"
+          className={styles.engageBtn}
+          onClick={scrollToComments}
+          title="Jump to comments"
+          aria-label="Jump to comments"
+        >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
           </svg>
           {commentCount > 0 && <span>{commentCount}</span>}
-        </a>
+        </button>
 
         {/* Save */}
         <button type="button" className={`${styles.engageBtn} ${isSaved ? styles.saved : ""}`} onClick={handleSave}>

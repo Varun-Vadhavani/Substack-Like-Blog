@@ -1,15 +1,192 @@
 .container {
-    flex: 5;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
 }
 
-.title {
-    max-width: 620px;
-    margin: 40px auto 30px auto;
-    font-size: 22px;
-    font-weight: 700;
+/* ── Feed Header Bar ── */
+.feedHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 28px 0 14px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
 }
 
+.tabGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--softTextColor);
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.tabBtn:hover {
+  color: var(--textColor);
+  background-color: rgba(128, 128, 128, 0.06);
+}
+
+.tabActive {
+  color: var(--textColor) !important;
+  background-color: rgba(128, 128, 128, 0.12) !important;
+  font-weight: 700 !important;
+}
+
+/* ── Quick Shuffle / Refresh Button ── */
+.shuffleBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--softTextColor);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.shuffleBtn:hover {
+  color: var(--textColor);
+  border-color: rgba(128, 128, 128, 0.45);
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+.shuffleIcon {
+  transition: transform 0.3s ease;
+}
+
+.shuffling .shuffleIcon {
+  animation: spin 0.4s ease;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.shuffleText {
+  display: inline;
+}
+
+/* ── Type Filter Pills ── */
+.filterPillRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filterPill {
+  background: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.16);
+  border-radius: 16px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--softTextColor);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.filterPill:hover {
+  color: var(--textColor);
+  border-color: rgba(128, 128, 128, 0.35);
+}
+
+.filterPillActive {
+  background-color: var(--textColor) !important;
+  color: var(--bg) !important;
+  border-color: var(--textColor) !important;
+  font-weight: 600 !important;
+}
+
+/* ── Posts Container ── */
 .posts {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Empty State ── */
+.emptyFeedBox {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--softTextColor);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.emptyIcon {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--textColor);
+  margin-bottom: 6px;
+}
+
+.emptyDesc {
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 360px;
+  margin: 0 auto 16px auto;
+}
+
+.emptyActionBtn {
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.emptyActionBtn:hover {
+  opacity: 0.9;
+}
+
+@media screen and (max-width: 480px) {
+  .feedHeader {
+    margin: 20px 0 12px 0;
+  }
+
+  .tabBtn {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .shuffleText {
+    display: none;
+  }
+
+  .shuffleBtn {
+    padding: 6px 8px;
+  }
 }

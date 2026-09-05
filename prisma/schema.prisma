@@ -47,6 +47,7 @@ model User {
   sessions      Session[]
   Post          Post[]
   Comment       Comment[]
+  commentLikes  CommentLike[]
   likes         Like[]
   savedPosts    SavedPost[]
   subscriptions Subscription[] @relation("UserSubscriptions")
@@ -90,13 +91,28 @@ model Post {
 }
 
 model Comment {
-  id        String   @id @default(cuid()) @map("_id")
-  createdAt DateTime @default(now())
+  id        String        @id @default(cuid()) @map("_id")
+  createdAt DateTime      @default(now())
   desc      String
   userEmail String
-  user      User     @relation(fields: [userEmail], references: [email])
+  user      User          @relation(fields: [userEmail], references: [email])
   postSlug  String
-  post      Post     @relation(fields: [postSlug], references: [slug])
+  post      Post          @relation(fields: [postSlug], references: [slug])
+  parentId  String?
+  parent    Comment?      @relation("CommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Comment[]     @relation("CommentReplies")
+  likes     CommentLike[]
+}
+
+model CommentLike {
+  id        String   @id @default(cuid()) @map("_id")
+  createdAt DateTime @default(now())
+  userEmail String
+  user      User     @relation(fields: [userEmail], references: [email])
+  commentId String
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([userEmail, commentId])
 }
 
 model Like {
